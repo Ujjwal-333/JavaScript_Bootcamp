@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab Index A4 Print</title>
+    <style>
+        /* A4 Print Settings */
+        @page {
+            size: A4;
+            margin: 20mm; /* Standard margin for lab files */
+        }
+
+        body {
+            font-family: "Times New Roman", Times, serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 170mm; /* A4 width minus margins */
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            text-decoration: none;
+            font-size: 22pt;
+            margin-bottom: 30px;
+            font-weight: bold;
+            letter-spacing: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Ensures column widths are respected */
+        }
+
+        th, td {
+            border: 1.5px solid black; /* Thicker borders for better print quality */
+            padding: 10px 8px;
+            vertical-align: middle;
+        }
+
+        /* Adjusting Column Widths for A4 */
+        .col-session { width: 15%; text-align: center; }
+        .col-objects { width: 50%; text-align: justify; }
+        .col-date    { width: 13%; }
+        .col-sign    { width: 12%; }
+        .col-grade   { width: 10%; }
+
+        th {
+            font-size: 12pt;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td {
+            font-size: 11pt;
+            line-height: 1.5;
+        }
+
+        .sub-list {
+            margin: 5px 0 0 15px;
+            padding: 0;
+            list-style: none;
+        }
+
+        /* Printing specific CSS */
+        @media print {
+            body { margin: 0; }
+            .container { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>INDEX</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-session">LAB<br>SESSION</th>
+                    <th class="col-objects">OBJECTS</th>
+                    <th class="col-date">DATE</th>
+                    <th class="col-sign">SIGN.</th>
+                    <th class="col-grade">GRADE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">1</td>
+                    <td>To learn handling and configuration of networking hardware like RJ-45 connector, CAT-6 cable, crimping tool, etc.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">2</td>
+                    <td>Implementation of Stop and Wait Protocol and Sliding Window Protocol.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">3</td>
+                    <td>Study of Socket Programming and Client – Server model.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">4</td>
+                    <td>Create a socket for HTTP for web page upload and download.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">5</td>
+                    <td>Write a program to implement RPC (Remote Procedure Call).</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">6</td>
+                    <td>Applications using TCP and UDP Sockets like:
+                        <div class="sub-list">a. DNS</div>
+                        <div class="sub-list">b. SNMP</div>
+                        <div class="sub-list">c. File Transfer</div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">7</td>
+                    <td>Perform a case study about the different routing algorithms to select the network path with its optimum and economical during data transfer.
+                        <div class="sub-list">i. Link State routing</div>
+                        <div class="sub-list">ii. Flooding</div>
+                        <div class="sub-list">iii. Distance vector</div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8</td>
+                    <td>Write a code simulating PING and TRACEROUTE commands.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">9</td>
+                    <td>Write a code simulating ARP/RARP protocols.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">10</td>
+                    <td>Configuration of router, hub, switch etc. (using real devices or simulators).</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

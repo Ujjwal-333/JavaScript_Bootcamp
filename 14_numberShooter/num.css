@@ -1,0 +1,129 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #1a1a2e;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Scrollbar hatane ke liye */
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #16213e;
+  color: #fff;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 5;
+}
+
+.stat {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.stat span {
+  color: #e94560;
+}
+
+.numberContainer {
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-start; /* Bubbles ko top se start karne ke liye */
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: 40px 20px; /* Top padding se bubbles niche aayenge */
+  overflow-y: auto;
+  /* FIX: calc ke andar space hona chahiye */
+  min-height: calc(100vh - 70px); 
+}
+
+.circle {
+  width: 50px;
+  height: 50px;
+  background-color: #0f3460;
+  border: 2px solid #e94560;
+  border-radius: 50%;
+  color: white;
+  display: grid;
+  place-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none; /* Text select na ho click karne par */
+}
+
+.circle:hover {
+  transform: scale(1.1);
+  background-color: #e94560;
+  box-shadow: 0 0 15px rgba(233, 69, 96, 0.5);
+}
+
+.circle:active {
+  transform: scale(0.9);
+}
+
+/* Pop-up Styles */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: none; 
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.popup {
+  background: #fff;
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.popup h2 {
+  font-size: 2.5rem;
+  color: #1a1a2e;
+  margin-bottom: 10px;
+}
+
+.popup p {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+#restartBtn {
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background-color: #e94560;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#restartBtn:hover {
+  background-color: #c62a48;
+  transform: translateY(-2px);
+}

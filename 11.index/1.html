@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Lab Index - A4</title>
+    <style>
+        /* A4 Page Setup */
+        body {
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 10mm auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+
+        /* Center Index Heading */
+        h1 {
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 12px 8px;
+            vertical-align: middle;
+        }
+        th {
+            background-color: #f8f8f8;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Column Widths */
+        .sno { 
+            width: 40px; 
+            text-align: center; 
+        }
+        
+        /* Date, Grade, aur Signature teeno ki width same (85px each) */
+        .col-fixed { 
+            width: 85px; 
+            text-align: center;
+        }
+
+        /* Program column will take the rest of the space */
+        .program-text {
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        /* Print Optimization */
+        @media print {
+            body { background: none; margin: 0; }
+            .page {
+                margin: 0;
+                box-shadow: none;
+                width: 100%;
+            }
+            /* Ensures table borders are visible in all browsers */
+            table { border: 1px solid black; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <h1 style="font-size: xx-large;">Index</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th class="sno">S. No.</th>
+                <th>Programs</th>
+                <th class="col-fixed">Date</th>
+                <th class="col-fixed">Grade</th>
+                <th class="col-fixed">Signature</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="sno">1</td>
+                <td class="program-text">Implement and demonstrate the FIND-S algorithm for finding the most specific hypothesis based on a given set of training data samples. Read the training data from a .CSV file.</td>
+                <td class="col-fixed"></td><td class="col-fixed"></td><td class="col-fixed"></td>
+            </tr>
+            <tr>
+                <td class="sno">2</td>
+                <td class="program-text">For a given set of training data example stored in a .CSV file, implement and demonstrate the Candidate-Elimination algorithm to output a description of the set of all hypothesis consistent with the training examples.</td>
+                <td class="col-fixed"></td><td class="col-fixed"></td><td class="col-fixed"></td>
+            </tr>
+            <tr>
+                <td class="sno">3</td>
+                <td class="program-text">Write a program to demonstrate the working of the decision tree based ID3 algorithm. Use an appropriate data set for building the decision tree and apply this knowledge to classify a new sample.</td>
+                <td class="col-fixed"></td><td class="col-fixed"></td><td class="col-fixed"></td>
+            </tr>
+            <tr>
+                <td class="sno">4</td>
+                <td class="program-text">Build an Artificial Neural Network by implementing the Backpropagation algorithm and test the same using appropriate data set.</td>
+                <td class="col-fixed"></td><td class="col-fixed"></td><td class="col-fixed"></td>
+            </tr>
+            <tr>
+                <td class="sno">5</td>
+                <td class="program-text">Write a program to implement the naïve Bayesian classifier for a sample training data set stored as a .CSV file. Compute the accuracy of the classifier, considering few test data set.</td>
+                <td class="col-fixed"></td><td class="col-fixed"></td><td class="col-fixed"></td>
+            </tr>
+            <tr>
+                <td class="sno">6</td>
+                <td class="program-text">Assuming a set of documents that need to be classified, use the naïve Bayesian classifier model to perform this task. Built-in Java classes/API can be used to write program. Calculate the accuracy, precision, and recall for your data set.</td>
+                <td class="col-fixed"></td><td class="col-fixed"></td><td class="col-fixed"></td>
+            </tr>
+            <tr>
+                <td class="sno">7</td>
+                <td class="program-text">Write a program to construct a Bayesian network considering medical data. Use this model to demonstrate the diagnosis of heart patients using standard Heart Disease Data set. You can use Java/Python ML library classes/API.</td>
+                <td class="col-fixed"></td><td class="col-fixed"></td><td class="col-fixed"></td>
+            </tr>
+            <tr>
+                <td class="sno">8</td>
+                <td class="program-text">Apply EM algorithm to cluster a set of data stored in a.CSV file. Use the same data set for clustering using K-Means algorithm. Compare the results of these two algorithm and comment on the quality of clustering. You can use Java/Python ML library classes/API in program.</td>
+                <td class="col-fixed"></td><td class="col-fixed"></td><td class="col-fixed"></td>
+            </tr>
+            <tr>
+                <td class="sno">9</td>
+                <td class="program-text">Write a program to implement K-Nearest Neighbour algorithm to classify the iris data set. Print both correct and wrong predictions. Java/Python ML library classes can be used for this problem.</td>
+                <td class="col-fixed"></td><td class="col-fixed"></td><td class="col-fixed"></td>
+            </tr>
+            <tr>
+                <td class="sno">10</td>
+                <td class="program-text">Implement the non-parametric locally Weighted Regression algorithm in order to fit data points. Select appropriate data set for your experiment and draw graphs.</td>
+                <td class="col-fixed"></td><td class="col-fixed"></td><td class="col-fixed"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

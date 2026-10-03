@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bubble Shooter Game</title>
+  <link rel="stylesheet" href="num.css">
+</head>
+<body>
+  <div class="main-wrapper">
+    <header>
+      <div class="stat">Timer: <span class="timerValue">60</span>s</div>
+      <div class="stat">Target: <span class="targetValue">0</span></div>
+      <div class="stat">Score: <span class="scoreValue">0</span></div>
+      <div class="stat">Best: <span id="highScoreDisplay">0</span></div>
+    </header>
+
+    <div class="numberContainer">
+      </div>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <div class="popup">
+      <h2>Game Over!</h2>
+      <p>Your Final Score: <span id="finalScore">0</span></p>
+      <button id="restartBtn">Play Again</button>
+    </div>
+  </div>
+
+  <script src="num.js"></script>
+</body>
+</html>

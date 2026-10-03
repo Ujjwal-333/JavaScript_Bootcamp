@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="hi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ujjwal's Premium Form</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.js"
+    ></script>
+    <link rel="stylesheet" href="form.css" />
+  </head>
+  <body>
+    <div class="form-container">
+      <div class="form-header">
+        <h2>Registration Form</h2>
+        <p>Apni details bharein aur shuru karein</p>
+      </div>
+
+      <form id="regForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" id="fname" required placeholder="Ujjwal" />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" id="lname" required placeholder="Pandey" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <input
+            type="email"
+            id="email"
+            required
+            placeholder="hello@example.com"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Contact Number</label>
+          <input
+            type="tel"
+            id="contact"
+            required
+            placeholder="+91 xxxxxxxxxx"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Select Date (Year View)</label>
+          <div class="date-wrapper">
+            <input
+              type="text"
+              id="selectedDate"
+              readonly
+              required
+              placeholder="Calendar par click karein"
+            />
+            <span class="calendar-icon" id="openCalendar">📅</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Gender</label>
+            <select id="gender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Experience (Years)</label>
+            <input type="number" id="experience" min="0" placeholder="0" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Passion</label>
+          <input type="text" id="passion" placeholder="e.g. Web Development" />
+        </div>
+
+        <div class="form-group">
+          <label>Brief Message</label>
+          <textarea
+            id="about"
+            rows="3"
+            placeholder="Apne baare mein kuch likhein..."
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Submit Registration</button>
+      </form>
+    </div>
+
+    <div id="calendarModal" class="modal">
+      <div class="modal-content">
+        <div class="year-header">
+          <button class="nav-btn" onclick="changeYear(-1)">◀ Prev</button>
+          <h3 id="displayYear">2026</h3>
+          <button class="nav-btn" onclick="changeYear(1)">Next ▶</button>
+          <span class="close-btn" id="closeModal">&times;</span>
+        </div>
+        <div id="yearGrid" class="year-grid"></div>
+      </div>
+    </div>
+
+    <script src="form.js"></script>
+  </body>
+</html>

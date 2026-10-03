@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Smart Paddy System | Arduino JS Guide</title>
+    <style>
+        :root {
+            --paddy-green: #2ecc71;
+            --paddy-dark: #27ae60;
+            --code-bg: #282c34;
+            --text-gray: #7f8c8d;
+            --accent-blue: #3498db;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--paddy-green), var(--paddy-dark));
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .header h1 { margin: 0; font-size: 2.5rem; letter-spacing: 1px; }
+        .header p { opacity: 0.9; font-size: 1.1rem; }
+
+        .content-padding { padding: 40px; }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            color: var(--paddy-dark);
+        }
+        .section-title span {
+            background: var(--paddy-green);
+            color: white;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #e1e4e8;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .card h4 { margin-top: 0; color: var(--accent-blue); }
+
+        /* Structured Code Block Styles */
+        .code-window {
+            background: var(--code-bg);
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .code-header {
+            background: #21252b;
+            padding: 10px 20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            color: #abb2bf;
+            font-size: 0.8rem;
+        }
+        .code-body {
+            padding: 20px;
+            overflow-x: auto;
+            color: #abb2bf;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .keyword { color: #c678dd; }
+        .function { color: #61afef; }
+        .string { color: #98c379; }
+        .comment { color: #5c6370; font-style: italic; }
+        .constant { color: #d19a66; }
+
+        .alert-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        footer {
+            background: #f1f3f5;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Advanced Paddy Automation</h1>
+        <p>JavaScript Controlled Agriculture Logic for Arduino</p>
+    </div>
+
+    <div class="content-padding">
+        
+        <h2 class="section-title"><span>1</span> System Architecture</h2>
+        <div class="grid">
+            <div class="card">
+                <h4>Hardware Stack</h4>
+                <ul>
+                    <li>Arduino Board (Uno/Mega/Nano)</li>
+                    <li>Capacitive Soil Moisture Sensor (A0)</li>
+                    <li>Low-level Trigger Relay (Pin 8)</li>
+                    <li>Water Pump (5V/12V)</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4>Software Stack</h4>
+                <ul>
+                    <li>Node.js Runtime</li>
+                    <li>Johnny-Five Framework</li>
+                    <li>Firmata Firmware</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="section-title"><span>2</span> Improved Structured Code</h2>
+        <p>Yeh code modular hai. Hardware configuration, Stage logic, aur Controller ko separate rakha gaya hai.</p>
+
+        <div class="code-window">
+            <div class="code-header">
+                <span>index.js (Modular Version)</span>
+                <span>Ujjwal Pandey v2.0</span>
+            </div>
+            <div class="code-body">
+<span class="comment">// --- MODULE IMPORTS ---</span><br>
+<span class="keyword">const</span> { Board, Sensor, Relay } = <span class="function">require</span>(<span class="string">"johnny-five"</span>);<br>
+<span class="keyword">const</span> board = <span class="keyword">new</span> Board();<br><br>
+
+<span class="comment">// --- 1. GLOBAL SETTINGS ---</span><br>
+<span class="keyword">const</span> SETTINGS = {<br>
+&nbsp;&nbsp;PLANTING_DATE: <span class="keyword">new</span> Date(<span class="string">"2026-04-01"</span>),<br>
+&nbsp;&nbsp;PINS: { SOIL: <span class="string">"A0"</span>, PUMP: <span class="constant">8</span> }<br>
+};<br><br>
+
+<span class="comment">// --- 2. LOGIC ENGINE: Growth Stage Tracker ---</span><br>
+<span class="keyword">function</span> <span class="function">getPaddyStatus</span>() {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> today = <span class="keyword">new</span> Date();<br>
+&nbsp;&nbsp;<span class="keyword">const</span> diff = Math.<span class="function">ceil</span>((today - SETTINGS.PLANTING_DATE) / (<span class="constant">1000 * 60 * 60 * 24</span>));<br><br>
+&nbsp;&nbsp;<span class="keyword">if</span> (diff <= <span class="constant">15</span>) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> { name: <span class="string">"Seedling"</span>, threshold: <span class="constant">700</span>, action: <span class="keyword">true</span>, tip: <span class="string">"Keep moist"</span> };<br>
+&nbsp;&nbsp;} <span class="keyword">else if</span> (diff <= <span class="constant">60</span>) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> { name: <span class="string">"Vegetative"</span>, threshold: <span class="constant">500</span>, action: <span class="keyword">true</span>, tip: <span class="string">"Flooding needed"</span> };<br>
+&nbsp;&nbsp;} <span class="keyword">else</span> {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> { name: <span class="string">"Ripening"</span>, threshold: <span class="constant">1024</span>, action: <span class="keyword">false</span>, tip: <span class="string">"Drain field"</span> };<br>
+&nbsp;&nbsp;}<br>
+}<br><br>
+
+<span class="comment">// --- 3. CONTROLLER: Hardware Execution ---</span><br>
+board.on(<span class="string">"ready"</span>, () => {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> soil = <span class="keyword">new</span> Sensor(SETTINGS.PINS.SOIL);<br>
+&nbsp;&nbsp;<span class="keyword">const</span> pump = <span class="keyword">new</span> Relay(SETTINGS.PINS.PUMP);<br><br>
+&nbsp;&nbsp;soil.on(<span class="string">"change"</span>, () => {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> state = <span class="function">getPaddyStatus</span>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> moisture = soil.value;<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">console</span>.<span class="function">log</span>(<span class="string">`Stage: ${state.name} | Moisture: ${moisture}`</span>);<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Action Logic</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (state.action && moisture > state.threshold) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pump.on();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">console</span>.<span class="function">warn</span>(<span class="string">"Pump ON: Watering Paddy..."</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;} <span class="keyword">else</span> {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pump.off();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;});<br>
+});
+            </div>
+        </div>
+
+        <h2 class="section-title"><span>3</span> Wiring Summary</h2>
+        <div class="alert-box">
+            <strong>Pin Mapping:</strong><br>
+            - <strong>Soil Sensor:</strong> Connect to Pin A0 on Arduino.<br>
+            - <strong>Relay Signal:</strong> Connect to Digital Pin 8.<br>
+            - <strong>Pump:</strong> Cut the positive wire of your pump power source and connect it to the COM and NO (Normally Open) pins of the Relay.
+        </div>
+    </div>
+
+    <footer>
+        Ujjwal Pandey (Bob) &bull; Agriculture Tech Project &bull; Gorakhpur 2026
+    </footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.container{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 150px;
+  background-color: lightseagreen;
+  flex-wrap:wrap;
+  gap: 5rem;
+  cursor: move;
+}
+.box{
+  display:flex;
+  background-color: brown;
+  border-radius:50%;
+  padding: 12px;
+  font-size: 60px;
+  height: 140px;
+  color: antiquewhite;
+  width: 140px;
+  align-items: center;
+  justify-content: center;
+  cursor: grabbing;
+}

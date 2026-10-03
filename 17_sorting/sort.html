@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoVisualizer Pro | Universal Analyzer</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #1e293b;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1100px;
+            margin: 20px;
+            background: var(--surface);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .header { text-align: center; margin-bottom: 20px; }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .input-group { display: flex; flex-direction: column; gap: 5px; }
+
+        #visualizer {
+            height: 350px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 2px;
+            padding: 10px;
+            background: #0f172a;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .bar {
+            background: var(--primary);
+            width: 100%;
+            border-radius: 2px 2px 0 0;
+            transition: height 0.1s ease;
+        }
+
+        .analysis {
+            margin-top: 20px;
+            display: none;
+            padding: 20px;
+            background: #fffbeb;
+            border-left: 6px solid var(--accent);
+            border-radius: 8px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card { background: white; padding: 10px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
+        button {
+            padding: 12px;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .generate-btn { background: var(--secondary); color: white; }
+        .start-btn { background: var(--primary); color: white; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .advice-box { color: #92400e; font-weight: 500; line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>DSA Sorting Analyzer</h1>
+        <p>Analyze complexity, stability, and efficiency in real-time.</p>
+    </div>
+
+    <div class="controls">
+        <div class="input-group">
+            <label>Select Algorithm:</label>
+            <select id="algoSelect">
+                <optgroup label="Comparison (In-Place/Stable)">
+                    <option value="bubble">Bubble Sort</option>
+                    <option value="insertion">Insertion Sort</option>
+                    <option value="selection">Selection Sort</option>
+                </optgroup>
+                <optgroup label="Divide & Conquer (Fast)">
+                    <option value="merge">Merge Sort</option>
+                    <option value="quick">Quick Sort</option>
+                </optgroup>
+                <optgroup label="Non-Comparison (Linear)">
+                    <option value="counting">Counting Sort</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Array Size:</label>
+            <input type="range" id="sizeInput" min="10" max="100" value="40">
+        </div>
+        <div class="input-group">
+            <label>Speed (ms):</label>
+            <input type="range" id="speedInput" min="1" max="300" value="50" dir="rtl">
+        </div>
+        <button class="generate-btn" onclick="init()">Generate New Array</button>
+        <button class="start-btn" id="startBtn" onclick="runVisualizer()">Start Sorting</button>
+    </div>
+
+    <div id="visualizer"></div>
+
+    <div id="analysisPanel" class="analysis">
+        <h3>Post-Sort Analysis</h3>
+        <div class="stats-grid">
+            <div class="stat-card"><strong>Time:</strong> <span id="tComp"></span></div>
+            <div class="stat-card"><strong>Space:</strong> <span id="sComp"></span></div>
+            <div class="stat-card"><strong>Stable:</strong> <span id="isStable"></span></div>
+            <div class="stat-card"><strong>Type:</strong> <span id="sType"></span></div>
+        </div>
+        <div id="advice" class="advice-box"></div>
+    </div>
+</div>
+
+<script>
+    let array = [];
+    const visualizer = document.getElementById('visualizer');
+    const algoData = {
+        bubble: { t: "O(n²)", s: "O(1)", stable: "Yes", type: "Comparison", name: "Bubble Sort" },
+        insertion: { t: "O(n²)", s: "O(1)", stable: "Yes", type: "Comparison (Adaptive)", name: "Insertion Sort" },
+        selection: { t: "O(n²)", s: "O(1)", stable: "No", type: "Comparison", name: "Selection Sort" },
+        merge: { t: "O(n log n)", s: "O(n)", stable: "Yes", type: "Divide & Conquer", name: "Merge Sort" },
+        quick: { t: "O(n log n)", s: "O(log n)", stable: "No", type: "Divide & Conquer", name: "Quick Sort" },
+        counting: { t: "O(n+k)", s: "O(k)", stable: "Yes", type: "Non-Comparison", name: "Counting Sort" }
+    };
+
+    function init() {
+        const size = document.getElementById('sizeInput').value;
+        array = [];
+        visualizer.innerHTML = '';
+        for (let i = 0; i < size; i++) {
+            array.push(Math.floor(Math.random() * 300) + 20);
+            const bar = document.createElement('div');
+            bar.className = 'bar';
+            bar.style.height = `${array[i]}px`;
+            visualizer.appendChild(bar);
+        }
+        document.getElementById('analysisPanel').style.display = 'none';
+        document.getElementById('startBtn').disabled = false;
+    }
+
+    const sleep = (ms) => new Promise(res => setTimeout(res, ms));
+
+    async function runVisualizer() {
+        const algo = document.getElementById('algoSelect').value;
+        const bars = document.getElementsByClassName('bar');
+        const speed = document.getElementById('speedInput').value;
+        document.getElementById('startBtn').disabled = true;
+
+        if (algo === 'bubble') await bubbleSort(bars, speed);
+        else if (algo === 'selection') await selectionSort(bars, speed);
+        else if (algo === 'insertion') await insertionSort(bars, speed);
+        else if (algo === 'merge') await mergeSort(0, array.length - 1, bars, speed);
+        else if (algo === 'quick') await quickSort(0, array.length - 1, bars, speed);
+        else if (algo === 'counting') await countingSort(bars, speed);
+
+        finalize(algo);
+    }
+
+    // --- ALGORITHMS ---
+
+    async function bubbleSort(bars, speed) {
+        for (let i = 0; i < array.length; i++) {
+            for (let j = 0; j < array.length - i - 1; j++) {
+                bars[j].style.background = 'red';
+                bars[j+1].style.background = 'red';
+                if (array[j] > array[j+1]) {
+                    await sleep(speed);
+                    [array[j], array[j+1]] = [array[j+1], array[j]];
+                    bars[j].style.height = `${array[j]}px`;
+                    bars[j+1].style.height = `${array[j+1]}px`;
+                }
+                bars[j].style.background = '#2563eb';
+                bars[j+1].style.background = '#2563eb';
+            }
+            bars[array.length - i - 1].style.background = '#22c55e';
+        }
+    }
+
+    async function insertionSort(bars, speed) {
+        for (let i = 1; i < array.length; i++) {
+            let key = array[i];
+            let j = i - 1;
+            bars[i].style.background = 'red';
+            while (j >= 0 && array[j] > key) {
+                await sleep(speed);
+                array[j + 1] = array[j];
+                bars[j + 1].style.height = `${array[j+1]}px`;
+                bars[j + 1].style.background = '#22c55e';
+                j--;
+            }
+            array[j + 1] = key;
+            bars[j + 1].style.height = `${key}px`;
+            await sleep(speed);
+            for(let k=0; k<=i; k++) bars[k].style.background = '#22c55e';
+        }
+    }
+
+    async function selectionSort(bars, speed) {
+        for (let i = 0; i < array.length; i++) {
+            let min = i;
+            bars[i].style.background = 'orange';
+            for (let j = i + 1; j < array.length; j++) {
+                bars[j].style.background = 'red';
+                await sleep(speed);
+                if (array[j] < array[min]) min = j;
+                bars[j].style.background = '#2563eb';
+            }
+            [array[i], array[min]] = [array[min], array[i]];
+            bars[i].style.height = `${array[i]}px`;
+            bars[min].style.height = `${array[min]}px`;
+            bars[i].style.background = '#22c55e';
+        }
+    }
+
+    async function mergeSort(l, r, bars, speed) {
+        if (l >= r) return;
+        let m = Math.floor((l + r) / 2);
+        await mergeSort(l, m, bars, speed);
+        await mergeSort(m + 1, r, bars, speed);
+        await merge(l, m, r, bars, speed);
+    }
+
+    async function merge(l, m, r, bars, speed) {
+        let n1 = m - l + 1, n2 = r - m;
+        let L = array.slice(l, m + 1), R = array.slice(m + 1, r + 1);
+        let i = 0, j = 0, k = l;
+        while (i < n1 && j < n2) {
+            await sleep(speed);
+            if (L[i] <= R[j]) array[k] = L[i++];
+            else array[k] = R[j++];
+            bars[k].style.height = `${array[k]}px`;
+            bars[k].style.background = '#22c55e';
+            k++;
+        }
+        while (i < n1) { array[k] = L[i++]; bars[k].style.height = `${array[k]}px`; bars[k].style.background = '#22c55e'; k++; await sleep(speed); }
+        while (j < n2) { array[k] = R[j++]; bars[k].style.height = `${array[k]}px`; bars[k].style.background = '#22c55e'; k++; await sleep(speed); }
+    }
+
+    async function quickSort(l, r, bars, speed) {
+        if (l < r) {
+            let pivotIdx = await partition(l, r, bars, speed);
+            await quickSort(l, pivotIdx - 1, bars, speed);
+            await quickSort(pivotIdx + 1, r, bars, speed);
+        }
+        if(l == 0 && r == array.length-1) for(let b of bars) b.style.background = '#22c55e';
+    }
+
+    async function partition(l, r, bars, speed) {
+        let pivot = array[r];
+        bars[r].style.background = 'orange';
+        let i = l - 1;
+        for (let j = l; j < r; j++) {
+            bars[j].style.background = 'red';
+            await sleep(speed);
+            if (array[j] < pivot) {
+                i++;
+                [array[i], array[j]] = [array[j], array[i]];
+                bars[i].style.height = `${array[i]}px`;
+                bars[j].style.height = `${array[j]}px`;
+            }
+            bars[j].style.background = '#2563eb';
+        }
+        [array[i + 1], array[r]] = [array[r], array[i + 1]];
+        bars[i+1].style.height = `${array[i+1]}px`;
+        bars[r].style.height = `${array[r]}px`;
+        return i + 1;
+    }
+
+    async function countingSort(bars, speed) {
+        let max = Math.max(...array);
+        let count = new Array(max + 1).fill(0);
+        for (let x of array) count[x]++;
+        let idx = 0;
+        for (let i = 0; i <= max; i++) {
+            while (count[i] > 0) {
+                array[idx] = i;
+                bars[idx].style.height = `${i}px`;
+                bars[idx].style.background = '#22c55e';
+                count[i]--;
+                idx++;
+                await sleep(speed);
+            }
+        }
+    }
+
+    // --- ANALYSIS LOGIC ---
+
+    function finalize(selected) {
+        const panel = document.getElementById('analysisPanel');
+        const advice = document.getElementById('advice');
+        const info = algoData[selected];
+        
+        panel.style.display = 'block';
+        document.getElementById('tComp').innerText = info.t;
+        document.getElementById('sComp').innerText = info.s;
+        document.getElementById('isStable').innerText = info.stable;
+        document.getElementById('sType').innerText = info.type;
+
+        let msg = `Aapne <b>${info.name}</b> use kiya. `;
+        if (array.length > 50 && (selected === 'bubble' || selected === 'selection')) {
+            msg += `⚠️ <b>Suggestion:</b> Ye array bada hai, isliye $O(n^2)$ algorithms slow hain. Aapko <b>Merge Sort</b> ya <b>Quick Sort</b> use karna chahiye tha kyunki wo $O(n \log n)$ mein kaam karte hain.`;
+        } else if (selected === 'counting' && Math.max(...array) > 500) {
+            msg += `⚠️ <b>Warning:</b> Counting sort tabhi use karein jab range (k) choti ho. Agar values bahut badi hain, toh memory zyada waste hogi.`;
+        } else {
+            msg += `✅ <b>Analysis:</b> Is dataset ke liye ye choice decent hai.`;
+        }
+        advice.innerHTML = msg;
+    }
+
+    init();
+</script>
+</body>
+</html>
